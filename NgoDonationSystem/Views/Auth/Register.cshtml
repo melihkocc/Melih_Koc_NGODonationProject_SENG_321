@@ -1,0 +1,173 @@
+@model NgoDonationSystem.DTOs.Requests.RegisterUserRequest
+
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<style>
+    .auth-bg {
+        background: linear-gradient(135deg, var(--ngo-primary) 0%, var(--ngo-sidebar) 100%);
+        min-height: calc(100vh - 150px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .auth-bg::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+        opacity: 0.05;
+    }
+    .auth-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: none;
+        border-radius: 1.5rem;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        max-width: 550px;
+        width: 100%;
+        overflow: hidden;
+    }
+    .auth-header {
+        background: rgba(44, 110, 73, 0.1);
+        padding: 2rem 2rem 1.5rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .auth-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--ngo-primary), var(--ngo-accent));
+        color: white;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 16px rgba(44, 110, 73, 0.3);
+    }
+</style>
+
+<div class="auth-bg my-3">
+    <div class="auth-card z-1">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h4 class="fw-bold text-dark mb-1">Aramıza Katılın</h4>
+            <p class="text-muted small mb-0">STK Yönetim Sistemine kayıt olmak için formu doldurun</p>
+        </div>
+        <div class="card-body p-4">
+            
+            <div class="alert alert-info d-flex align-items-start mb-4 rounded-3 border-0 bg-info bg-opacity-10 text-info" role="alert">
+                <i class="fas fa-info-circle fs-5 me-3 mt-1"></i>
+                <div class="small fw-medium">
+                    Güvenlik prosedürleri gereği, tüm yeni kayıt talepleri <strong>Yönetici (Admin) onayı</strong> gerektirir. Kaydınız onaylandıktan sonra e-posta adresiniz ve şifrenizle sisteme giriş yapabilirsiniz.
+                </div>
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger py-2 border-0 bg-danger bg-opacity-10 text-danger rounded-3"><i class="fas fa-exclamation-circle me-1"></i>@ViewBag.Error</div>
+            }
+
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3 small"></div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="FirstName" class="form-label fw-semibold text-dark small"></label>
+                        <input asp-for="FirstName" class="form-control bg-light" placeholder="Adınız" />
+                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="LastName" class="form-label fw-semibold text-dark small"></label>
+                        <input asp-for="LastName" class="form-control bg-light" placeholder="Soyadınız" />
+                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label fw-semibold text-dark small"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="fas fa-envelope text-muted"></i></span>
+                        <input asp-for="Email" class="form-control bg-light border-start-0 ps-0" placeholder="ornek@email.com" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="RoleName" class="form-label fw-semibold text-dark small"></label>
+                    <select asp-for="RoleName" class="form-select bg-light" id="roleSelector">
+                        <option value="Donor">Bağışçı (Donor)</option>
+                        <option value="FieldWorker">Saha Görevlisi / Dağıtıcı (Worker)</option>
+                        <option value="WarehouseStaff">Depo Sorumlusu (Staff)</option>
+                        <option value="Accountant">Muhasebe Sorumlusu (Accountant)</option>
+                    </select>
+                    <span asp-validation-for="RoleName" class="text-danger small"></span>
+                </div>
+
+                <div class="row mb-3" id="donorFieldsSection">
+                    <div class="col-md-6">
+                        <label asp-for="DonorType" class="form-label fw-semibold text-dark small"></label>
+                        <select asp-for="DonorType" class="form-select bg-light">
+                            <option value="Individual">Bireysel</option>
+                            <option value="Corporate">Kurumsal</option>
+                        </select>
+                        <span asp-validation-for="DonorType" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="TaxNumber" class="form-label fw-semibold text-dark small"></label>
+                        <input asp-for="TaxNumber" class="form-control bg-light" placeholder="TC / Vergi No" />
+                        <span asp-validation-for="TaxNumber" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label fw-semibold text-dark small"></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
+                        <input asp-for="Password" class="form-control bg-light border-start-0 ps-0" placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 mb-3 rounded-pill fw-semibold shadow-sm" style="background: var(--ngo-primary); border: none;">
+                    Kaydı Tamamla <i class="fas fa-check ms-1"></i>
+                </button>
+                
+                <div class="text-center mt-3">
+                    <span class="text-muted small">Zaten hesabınız var mı?</span>
+                    <a asp-action="Login" class="text-decoration-none fw-bold" style="color: var(--ngo-accent);">Giriş Yapın</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var roleSelect = document.getElementById("roleSelector");
+            var donorFields = document.getElementById("donorFieldsSection");
+
+            function toggleDonorFields() {
+                if (roleSelect.value === "Donor") {
+                    donorFields.style.display = "flex";
+                } else {
+                    donorFields.style.display = "none";
+                }
+            }
+
+            roleSelect.addEventListener("change", toggleDonorFields);
+            toggleDonorFields(); // initial run
+        });
+    </script>
+}

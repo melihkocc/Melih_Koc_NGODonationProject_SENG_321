@@ -1,0 +1,49 @@
+@model NgoDonationSystem.DTOs.Responses.AidRequestResponse
+
+@{
+    ViewData["Title"] = "Talep Detayları";
+}
+
+<div class="page-header">
+    <h1><i class="fas fa-clipboard-check me-2 text-muted"></i>@ViewData["Title"]</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header py-3" style="background: var(--ngo-primary); color: #fff;">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Talep Bilgileri</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                    <span class="fw-semibold text-muted">Durum</span>
+                    @await Html.PartialAsync("_StatusBadge", null, new ViewDataDictionary(ViewData) { { "Status", Model.Status } })
+                </div>
+
+                <div class="border-bottom pb-3 mb-3">
+                    <div class="text-muted small mb-1">@Html.DisplayNameFor(model => model.BeneficiaryName)</div>
+                    <div class="fw-semibold fs-5" style="color: var(--ngo-primary);">@Model.BeneficiaryName</div>
+                </div>
+
+                <div class="border-bottom pb-3 mb-3">
+                    <div class="text-muted small mb-1">@Html.DisplayNameFor(model => model.RequestedItems)</div>
+                    <div>@Model.RequestedItems</div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="text-muted small mb-1">@Html.DisplayNameFor(model => model.CreatedByName)</div>
+                    <div class="text-secondary">@Model.CreatedByName</div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning flex-fill">
+                        <i class="fas fa-pen me-1"></i> Düzenle
+                    </a>
+                    <a asp-action="Index" class="btn btn-outline-secondary flex-fill">
+                        <i class="fas fa-arrow-left me-1"></i> Listeye Dön
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

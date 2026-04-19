@@ -1,0 +1,271 @@
+is_global = true
+build_property.TargetFramework = net10.0
+build_property.TargetFramework = net10.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
+build_property.RootNamespace = NgoDonationSystem
+build_property.RootNamespace = NgoDonationSystem
+build_property.ProjectDir = /Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 10.0
+build_property.EnableCodeStyleSeverity = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AidDistributions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWlkRGlzdHJpYnV0aW9ucy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AidDistributions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWlkRGlzdHJpYnV0aW9ucy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AidRequests/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWlkUmVxdWVzdHMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AidRequests/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWlkUmVxdWVzdHMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AidRequests/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWlkUmVxdWVzdHMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AidRequests/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWlkUmVxdWVzdHMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AidRequests/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWlkUmVxdWVzdHMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/ApprovalWorkflow/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXBwcm92YWxXb3JrZmxvdy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AuditLog/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXVkaXRMb2cvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/AuditLog/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXVkaXRMb2cvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Auth/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Beneficiaries/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmVuZWZpY2lhcmllcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Beneficiaries/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmVuZWZpY2lhcmllcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Beneficiaries/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmVuZWZpY2lhcmllcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Beneficiaries/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmVuZWZpY2lhcmllcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Beneficiaries/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmVuZWZpY2lhcmllcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Documents/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Documents/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Documents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Documents/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9jdW1lbnRzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Donations/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9uYXRpb25zL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Donations/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9uYXRpb25zL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Donations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9uYXRpb25zL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Donors/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9ub3JzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Donors/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9ub3JzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Donors/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9ub3JzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Donors/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRG9ub3JzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/ExpenseCategories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZUNhdGVnb3JpZXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/ExpenseCategories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZUNhdGVnb3JpZXMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/ExpenseCategories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZUNhdGVnb3JpZXMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/ExpenseCategories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZUNhdGVnb3JpZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Expenses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Expenses/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZXMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Expenses/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZXMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Expenses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZXMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Expenses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Inventory/AddStock.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5L0FkZFN0b2NrLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Inventory/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5L0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Inventory/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5L0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Inventory/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5L0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Inventory/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5L0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Inventory/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5L0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/InventoryCategories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5Q2F0ZWdvcmllcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/InventoryCategories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5Q2F0ZWdvcmllcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/InventoryCategories/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5Q2F0ZWdvcmllcy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/InventoryCategories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5Q2F0ZWdvcmllcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/InventoryCategories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5Q2F0ZWdvcmllcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/InventoryTransactions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW52ZW50b3J5VHJhbnNhY3Rpb25zL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Reports/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVwb3J0cy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Shared/_StatusBadge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19TdGF0dXNCYWRnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Users/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Users/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/melihkoc/Desktop/Melih_Koc_DonationProject/NgoDonationSystem/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-drgh699g43

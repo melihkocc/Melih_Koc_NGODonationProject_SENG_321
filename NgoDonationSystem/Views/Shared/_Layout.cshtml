@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - STK Bağış Sistemi</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/NgoDonationSystem.styles.css" asp-append-version="true" />
+    <style>
+        :root {
+            --ngo-primary: #2c6e49;
+            --ngo-primary-dark: #214d36;
+            --ngo-accent: #4c956c;
+            --ngo-light: #f0f4f3;
+            --ngo-sidebar: #1b3a2d;
+        }
+        body { background-color: #f5f7fa; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        .navbar-ngo {
+            background: linear-gradient(135deg, var(--ngo-primary), var(--ngo-primary-dark));
+            box-shadow: 0 2px 8px rgba(0,0,0,.12);
+        }
+        .navbar-ngo .navbar-brand { color: #fff; font-weight: 700; letter-spacing: .3px; font-size: 1.15rem; }
+        .navbar-ngo .navbar-brand:hover { color: rgba(255,255,255,.9); }
+        .navbar-ngo .nav-link { color: rgba(255,255,255,.85) !important; font-size: .875rem; font-weight: 500; transition: color .2s; }
+        .navbar-ngo .nav-link:hover, .navbar-ngo .nav-link:focus { color: #fff !important; }
+        .navbar-ngo .dropdown-menu { border: none; box-shadow: 0 4px 16px rgba(0,0,0,.1); border-radius: .5rem; }
+        .navbar-ngo .dropdown-item { font-size: .875rem; padding: .5rem 1rem; }
+        .navbar-ngo .dropdown-item:hover { background-color: var(--ngo-light); color: var(--ngo-primary); }
+        .navbar-ngo .badge-user { background: rgba(255,255,255,.15); border-radius: 2rem; padding: .35rem .75rem; font-size: .8rem; }
+        .main-content { min-height: calc(100vh - 130px); }
+        .page-header { border-bottom: 2px solid var(--ngo-accent); padding-bottom: .5rem; margin-bottom: 1.5rem; }
+        .page-header h1 { font-size: 1.5rem; font-weight: 600; color: #2d3436; }
+        .footer-ngo { background: #fff; border-top: 1px solid #e9ecef; color: #6c757d; font-size: .8rem; }
+        .card { border: none; border-radius: .625rem; }
+        .card-header { border-radius: .625rem .625rem 0 0 !important; }
+        .table th { font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .3px; color: #495057; }
+        .table td { font-size: .9rem; vertical-align: middle; }
+        .btn { border-radius: .375rem; font-size: .875rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-ngo py-2">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>STK Bağış Sistemi</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fas fa-tachometer-alt me-1"></i>Panel</a>
+                            </li>
+                        }
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Donations" asp-action="Index"><i class="fas fa-hand-holding-usd me-1"></i>Bağışlar</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-receipt me-1"></i>Giderler</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="Expenses" asp-action="Index"><i class="fas fa-receipt me-2 text-muted"></i>Gider Listesi</a></li>
+                                        <li><a class="dropdown-item" asp-controller="ExpenseCategories" asp-action="Index"><i class="fas fa-tags me-2 text-muted"></i>Gider Kategorileri</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("WarehouseStaff") || User.IsInRole("FieldWorker"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-boxes-stacked me-1"></i>Envanter</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="Inventory" asp-action="Index"><i class="fas fa-box me-2 text-muted"></i>Ürün Listesi</a></li>
+                                        <li><a class="dropdown-item" asp-controller="InventoryCategories" asp-action="Index"><i class="fas fa-layer-group me-2 text-muted"></i>Kategoriler</a></li>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("WarehouseStaff"))
+                                        {
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" asp-controller="InventoryTransactions" asp-action="Index"><i class="fas fa-arrow-right-arrow-left me-2 text-muted"></i>Stok Hareketleri</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Donors" asp-action="Index"><i class="fas fa-user-tie me-1"></i>Bağışçılar</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("FieldWorker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Beneficiaries" asp-action="Index"><i class="fas fa-people-group me-1"></i>İhtiyaç Sahipleri</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-clipboard-list me-1"></i>Yardım</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="AidRequests" asp-action="Index"><i class="fas fa-clipboard-check me-2 text-muted"></i>Yardım Talepleri</a></li>
+                                        <li><a class="dropdown-item" asp-controller="AidDistributions" asp-action="Index"><i class="fas fa-truck-fast me-2 text-muted"></i>Yardım Dağıtımları</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Donor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Donations" asp-action="Create"><i class="fas fa-circle-plus me-1"></i>Bağış Yap</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Donations" asp-action="Index"><i class="fas fa-clock-rotate-left me-1"></i>Bağış Geçmişim</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Accountant") || User.IsInRole("FieldWorker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Documents" asp-action="Index"><i class="fas fa-folder-open me-1"></i>Dokümanlar</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Users" asp-action="Index"><i class="fas fa-users-cog me-1"></i>Sistem Çalışanları</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-shield-halved me-1"></i>Yönetim</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="ApprovalWorkflow" asp-action="Index"><i class="fas fa-check-double me-2 text-muted"></i>Onay İş Akışları</a></li>
+                                        <li><a class="dropdown-item" asp-controller="AuditLog" asp-action="Index"><i class="fas fa-scroll me-2 text-muted"></i>Denetim Günlüğü</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            }
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Reports" asp-action="Index"><i class="fas fa-chart-pie me-1"></i>Raporlar</a>
+                                </li>
+                            }
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown me-3" id="notificationsDropdownItem">
+                                <a class="nav-link dropdown-toggle position-relative" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notificationCount" style="display:none; font-size:0.6rem;">
+                                        0
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notificationsDropdown" id="notificationsList" style="width: 300px; max-height: 400px; overflow-y:auto;">
+                                    <li><h6 class="dropdown-header d-flex justify-content-between align-items-center">
+                                        Bildirimler
+                                        <button class="btn btn-sm btn-link text-decoration-none p-0" id="markAllReadBtn" style="font-size:0.8rem; display:none;">Tümünü Okundu İşaretle</button>
+                                    </h6></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <div id="notificationsContainer">
+                                        <li><span class="dropdown-item text-muted small text-center py-2">Bildiriminiz yok.</span></li>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="nav-item d-flex align-items-center me-2">
+                                <span class="badge-user text-white"><i class="fas fa-user-circle me-1"></i>@User.Identity.Name</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Logout"><i class="fas fa-right-from-bracket me-1"></i>Çıkış</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Login"><i class="fas fa-right-to-bracket me-1"></i>Giriş Yap</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Register"><i class="fas fa-user-plus me-1"></i>Kayıt Ol</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid px-4 main-content">
+        <main role="main" class="py-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer-ngo py-3 mt-4">
+        <div class="container-fluid px-4 text-center">
+            &copy; 2026 — STK Bağış &amp; Yardım Takip Sistemi — <a asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted">Gizlilik Politikası</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <script>
+            $(document).ready(function() {
+                function loadNotifications() {
+                    $.get('/Notifications/GetUnread', function(data) {
+                        var count = data.length;
+                        if (count > 0) {
+                            $('#notificationCount').text(count).show();
+                            $('#markAllReadBtn').show();
+                            $('#notificationsContainer').empty();
+                            
+                            $.each(data, function(i, notification) {
+                                var actionUrlAttr = notification.actionUrl ? 'data-url="' + notification.actionUrl + '"' : '';
+                                var item = $('<li><a class="dropdown-item notification-item" href="#" data-id="' + notification.id + '" ' + actionUrlAttr + ' style="white-space:normal;">' +
+                                    '<div class="fw-bold fs-6">' + notification.title + '</div>' +
+                                    '<div class="small text-muted">' + notification.message + '</div>' +
+                                    '</a></li>');
+                                $('#notificationsContainer').append(item);
+                            });
+                        } else {
+                            $('#notificationCount').hide();
+                            $('#markAllReadBtn').hide();
+                            $('#notificationsContainer').html('<li><span class="dropdown-item text-muted small text-center py-2">Bildiriminiz yok.</span></li>');
+                        }
+                    });
+                }
+
+                loadNotifications();
+                setInterval(loadNotifications, 30000); // 30 sec poll
+
+                $(document).on('click', '.notification-item', function(e) {
+                    e.preventDefault();
+                    var id = $(this).data('id');
+                    var url = $(this).data('url');
+                    $.post('/Notifications/MarkAsRead/' + id, function() {
+                        if (url) {
+                            window.location.href = url;
+                        } else {
+                            loadNotifications();
+                        }
+                    });
+                });
+
+                $('#markAllReadBtn').click(function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $.post('/Notifications/MarkAllAsRead', function() {
+                        loadNotifications();
+                    });
+                });
+            });
+        </script>
+    }
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

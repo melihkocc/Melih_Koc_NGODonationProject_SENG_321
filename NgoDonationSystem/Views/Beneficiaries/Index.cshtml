@@ -1,0 +1,55 @@
+@model IEnumerable<NgoDonationSystem.DTOs.Responses.BeneficiaryResponse>
+
+@{
+    ViewData["Title"] = "İhtiyaç Sahipleri";
+}
+
+<div class="page-header d-flex justify-content-between align-items-center">
+    <h1><i class="fas fa-people-group me-2 text-muted"></i>@ViewData["Title"]</h1>
+    <a asp-action="Create" class="btn btn-sm px-3" style="background: var(--ngo-primary); color: #fff;">
+        <i class="fas fa-plus me-1"></i> Yeni Kayıt
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => m.FullName)</th>
+                        <th>@Html.DisplayNameFor(m => m.Email)</th>
+                        <th>@Html.DisplayNameFor(m => m.Phone)</th>
+                        <th>@Html.DisplayNameFor(m => m.IdentificationNumber)</th>
+                        <th>@Html.DisplayNameFor(m => m.IsActive)</th>
+                        <th class="text-center" style="width:180px;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@item.FullName</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                            <td><code>@item.IdentificationNumber</code></td>
+                            <td>
+                                @if (item.IsActive)
+                                { <span class="badge bg-success">Aktif</span> }
+                                else
+                                { <span class="badge bg-secondary">Pasif</span> }
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Düzenle"><i class="fas fa-pen"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info" title="Detay"><i class="fas fa-eye"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Sil"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

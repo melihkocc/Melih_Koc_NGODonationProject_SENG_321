@@ -1,0 +1,86 @@
+@model NgoDonationSystem.DTOs.Responses.AuditLogResponse
+
+@{
+    ViewData["Title"] = "Denetim Kaydı Detayı";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">@ViewData["Title"]</h1>
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-dark text-white">
+            <i class="fas fa-info-circle me-1"></i>
+            Kayıt #@Model.Id Detayı
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-5">Tablo Adı:</dt>
+                        <dd class="col-sm-7"><span class="badge bg-secondary">@Model.TableName</span></dd>
+
+                        <dt class="col-sm-5">İşlem:</dt>
+                        <dd class="col-sm-7">
+                            @{
+                                var actionBadge = Model.Action switch
+                                {
+                                    "INSERT" => "bg-success",
+                                    "UPDATE" => "bg-warning text-dark",
+                                    "DELETE" => "bg-danger",
+                                    _ => "bg-info"
+                                };
+                            }
+                            <span class="badge @actionBadge">@Model.Action</span>
+                        </dd>
+
+                        <dt class="col-sm-5">Kullanıcı:</dt>
+                        <dd class="col-sm-7">@Model.UserName</dd>
+
+                        <dt class="col-sm-5">Zaman Damgası:</dt>
+                        <dd class="col-sm-7">@Model.Timestamp.ToLocalTime().ToString("F")</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-danger mb-3">
+                        <div class="card-header bg-danger text-white">
+                            <i class="fas fa-minus-circle me-1"></i> Eski Değerler (Old Values)
+                        </div>
+                        <div class="card-body">
+                            @if (!string.IsNullOrEmpty(Model.OldValues))
+                            {
+                                <pre class="mb-0 p-3 bg-light rounded" style="max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word;">@Model.OldValues</pre>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0"><em>Eski değer bulunmuyor (yeni kayıt).</em></p>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-success mb-3">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-plus-circle me-1"></i> Yeni Değerler (New Values)
+                        </div>
+                        <div class="card-body">
+                            @if (!string.IsNullOrEmpty(Model.NewValues))
+                            {
+                                <pre class="mb-0 p-3 bg-light rounded" style="max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word;">@Model.NewValues</pre>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-0"><em>Yeni değer bulunmuyor (silme işlemi).</em></p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a asp-action="Index" class="btn btn-secondary mt-3">
+                <i class="fas fa-arrow-left me-1"></i> Listeye Dön
+            </a>
+        </div>
+    </div>
+</div>

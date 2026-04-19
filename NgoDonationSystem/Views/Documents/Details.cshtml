@@ -1,0 +1,48 @@
+@model NgoDonationSystem.Models.Document
+
+@{
+    ViewData["Title"] = "Belge Detayları";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow border-0">
+            <div class="card-header bg-info text-dark py-3 text-center">
+                <h2 class="text-dark py-2 m-0">@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="mb-4">
+                    <div class="row border-bottom pb-2 mb-3 mt-2">
+                        <div class="col-4 fw-bold text-muted">Belge Adı</div>
+                        <div class="col-8">@Model.FileName</div>
+                    </div>
+                    <div class="row border-bottom pb-2 mb-3">
+                        <div class="col-4 fw-bold text-muted">Dosya Türü</div>
+                        <div class="col-8">@Model.FileType</div>
+                    </div>
+                    <div class="row border-bottom pb-2 mb-3">
+                        <div class="col-4 fw-bold text-muted">Yüklenme Tarihi</div>
+                        <div class="col-8 text-secondary">@Model.UploadedDate.ToLocalTime().ToString("g")</div>
+                    </div>
+                    <div class="row pb-2 mb-3">
+                        <div class="col-4 fw-bold text-muted">Depolama Yolu</div>
+                        <div class="col-8 small text-muted">/wwwroot/uploads/@Model.FilePath</div>
+                    </div>
+                </div>
+
+                <div class="row pt-2 justify-content-center">
+                    <div class="col-12 mb-2">
+                        <a asp-action="Download" asp-route-id="@Model.Id" class="btn btn-success form-control shadow-sm">
+                            <i class="fas fa-download me-1"></i> Dosyayı İndir
+                        </a>
+                    </div>
+                    <div class="col-12">
+                        <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">
+                            <i class="fas fa-arrow-left me-1"></i> Geri Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

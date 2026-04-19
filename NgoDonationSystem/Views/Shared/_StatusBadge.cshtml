@@ -1,0 +1,26 @@
+
+@{
+    string status = ViewData["Status"]?.ToString() ?? "";
+    string badgeClass = "";
+    string label = "";
+
+    switch (status)
+    {
+        case "Pending": case "Submitted": case "UnderReview":
+            badgeClass = "bg-warning text-dark"; label = "Beklemede"; break;
+        case "Approved":
+            badgeClass = "bg-success"; label = "Onaylandı"; break;
+        case "Rejected":
+            badgeClass = "bg-danger"; label = "Reddedildi"; break;
+        case "Completed": case "Success":
+            badgeClass = "bg-success"; label = "Tamamlandı"; break;
+        case "Teslim Edildi":
+            badgeClass = "bg-info text-dark"; label = "Teslim Edildi"; break;
+        case "Cancelled":
+            badgeClass = "bg-danger text-white"; label = "İptal Edildi"; break;
+        default:
+            badgeClass = "bg-secondary"; label = status; break;
+    }
+}
+
+<span class="badge @badgeClass px-3 py-1">@label</span>

@@ -1,0 +1,80 @@
+@model NgoDonationSystem.DTOs.Requests.CreateDonorRequest
+
+@{
+    ViewData["Title"] = "Yeni Bağışçı Ekle";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow border-0">
+            <div class="card-header bg-success text-white py-3">
+                <div class="row align-items-center">
+                    <div class="col-12 text-center text-md-start">
+                        <h2 class="text-white py-2 m-0">@ViewData["Title"]</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FirstName" class="form-label fw-bold"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Ad" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LastName" class="form-label fw-bold"></label>
+                            <input asp-for="LastName" class="form-control" placeholder="Soyad" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label fw-bold"></label>
+                            <input asp-for="Email" class="form-control" type="email" placeholder="email@example.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Password" class="form-label fw-bold"></label>
+                            <input asp-for="Password" class="form-control" type="password" placeholder="********" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="DonorType" class="form-label fw-bold"></label>
+                            <select asp-for="DonorType" class="form-select">
+                                <option value="">Seçiniz...</option>
+                                <option value="Individual">Bireysel</option>
+                                <option value="Corporate">Kurumsal</option>
+                            </select>
+                            <span asp-validation-for="DonorType" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TaxNumber" class="form-label fw-bold"></label>
+                            <input asp-for="TaxNumber" class="form-control" placeholder="Vergi / Kimlik No" />
+                            <span asp-validation-for="TaxNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary form-control">Ekle</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-action="Index" class="btn btn-outline-secondary border form-control">Vazgeç</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

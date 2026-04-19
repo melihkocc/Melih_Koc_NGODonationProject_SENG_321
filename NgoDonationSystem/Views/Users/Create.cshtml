@@ -1,0 +1,70 @@
+@model NgoDonationSystem.DTOs.Requests.CreateWorkerRequest
+
+@{
+    ViewData["Title"] = "Yeni Personel Ekle";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow border-0">
+            <div class="card-header py-3" style="background: var(--ngo-primary); color: #fff;">
+                <h5 class="mb-0 text-center"><i class="fas fa-user-plus me-2"></i>Yeni Çalışan Kaydı</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FirstName" class="form-label fw-bold"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Ad" />
+                            <span asp-validation-for="FirstName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LastName" class="form-label fw-bold"></label>
+                            <input asp-for="LastName" class="form-control" placeholder="Soyad" />
+                            <span asp-validation-for="LastName" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-bold"></label>
+                        <input asp-for="Email" class="form-control" placeholder="email@kurum.org" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label fw-bold"></label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="******" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="RoleName" class="form-label fw-bold"></label>
+                        <select asp-for="RoleName" class="form-select" asp-items="@ViewBag.RoleName">
+                            <option value="">— Rol / Görev Seçiniz —</option>
+                        </select>
+                        <span asp-validation-for="RoleName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row pt-2 text-center text-md-start">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary form-control shadow-sm">
+                                <i class="fas fa-save me-1"></i> Kaydet
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">
+                                <i class="fas fa-times me-1"></i> İptal
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

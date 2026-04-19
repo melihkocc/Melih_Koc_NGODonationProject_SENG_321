@@ -1,0 +1,62 @@
+@model NgoDonationSystem.DTOs.Responses.BeneficiaryResponse
+
+@{
+    ViewData["Title"] = "Faydalanıcı Detayları";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow border-0">
+            <div class="card-header bg-info text-dark py-3">
+                <h2 class="text-dark py-2 m-0 text-center">@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.FullName)</div>
+                    <div class="col-sm-8 text-primary">@Html.DisplayFor(model => model.FullName)</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.Email)</div>
+                    <div class="col-sm-8 text-primary">@Html.DisplayFor(model => model.Email)</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.Phone)</div>
+                    <div class="col-sm-8">@Html.DisplayFor(model => model.Phone)</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.IdentificationNumber)</div>
+                    <div class="col-sm-8">@Html.DisplayFor(model => model.IdentificationNumber)</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.Address)</div>
+                    <div class="col-sm-8">@Html.DisplayFor(model => model.Address)</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.IsActive)</div>
+                    <div class="col-sm-8">
+                        <span class="badge @(Model.IsActive ? "bg-success" : "bg-danger")">
+                            @(Model.IsActive ? "Aktif" : "Pasif")
+                        </span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.CreatedAt)</div>
+                    <div class="col-sm-8 small text-secondary">@Model.CreatedAt.ToLocalTime().ToString("g")</div>
+                </div>
+
+                <div class="row pt-2 text-center text-md-start">
+                    <div class="col-6 col-md-3">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary form-control shadow-sm">
+                            <i class="fas fa-edit me-1"></i> Düzenle
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">
+                            <i class="fas fa-arrow-left me-1"></i> Listeye Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

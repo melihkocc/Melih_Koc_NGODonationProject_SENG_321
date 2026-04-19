@@ -1,0 +1,59 @@
+@model NgoDonationSystem.DTOs.Responses.ExpenseResponse
+
+@{
+    ViewData["Title"] = "Gider Detayları";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow border-0">
+            <div class="card-header bg-info text-dark py-3">
+                <h2 class="text-dark py-2 m-0 text-center">@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="row border-bottom pb-2 mb-3 align-items-center">
+                    <div class="col-sm-4 fw-bold text-muted">Harcama Miktarı</div>
+                    <div class="col-sm-8 text-danger fs-3 fw-bold">@Model.Amount.ToString("C2")</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.CategoryName)</div>
+                    <div class="col-sm-8"><span class="badge bg-secondary fs-6">@Model.CategoryName</span></div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.ExpenseDate)</div>
+                    <div class="col-sm-8">@Model.ExpenseDate.ToString("D")</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.ReceiptFileName)</div>
+                    <div class="col-sm-8 text-primary">
+                        @if (Model.ReceiptFileName != "Belge Yok")
+                        {
+                            <i class="fas fa-file-invoice me-2"></i>@Model.ReceiptFileName
+                        }
+                        else
+                        {
+                            <span class="text-muted">Ekli belge bulunmuyor.</span>
+                        }
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-4 fw-bold text-muted">@Html.DisplayNameFor(model => model.CreatedByName)</div>
+                    <div class="col-sm-8 text-muted">@Model.CreatedByName</div>
+                </div>
+
+                <div class="row pt-2 text-center text-md-start">
+                    <div class="col-6 col-md-3">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary form-control shadow-sm">
+                            <i class="fas fa-edit me-1"></i> Düzenle
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">
+                            <i class="fas fa-arrow-left me-1"></i> Listeye Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

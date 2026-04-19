@@ -1,0 +1,275 @@
+@model IEnumerable<NgoDonationSystem.Models.Donation>
+
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+    decimal totalFunds = (decimal)ViewBag.TotalFunds;
+    decimal totalExpenses = (decimal)ViewBag.TotalExpenses;
+    decimal remainingBalance = totalFunds - totalExpenses;
+    double progress = totalFunds > 0 ? (double)(remainingBalance / totalFunds) * 100 : 0;
+}
+
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.9) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        border-radius: 1.25rem !important;
+        overflow: hidden;
+    }
+    .glass-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08) !important;
+    }
+    .icon-box {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        font-size: 1.5rem;
+    }
+    .hero-banner {
+        background: linear-gradient(135deg, var(--ngo-primary) 0%, var(--ngo-sidebar) 100%);
+        border-radius: 1.25rem;
+        color: white;
+        padding: 2.5rem;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        box-shadow: 0 15px 30px rgba(27,58,45,0.25);
+    }
+    .hero-banner::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+    }
+    .hero-banner::after {
+        content: '\f4c0';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        right: -30px;
+        bottom: -50px;
+        font-size: 16rem;
+        opacity: 0.08;
+        transform: rotate(-15deg);
+    }
+    .progress-custom {
+        height: 10px;
+        border-radius: 5px;
+        background-color: rgba(255,255,255,0.2);
+        overflow: hidden;
+    }
+    .progress-bar-custom {
+        background-color: #ffd166;
+        border-radius: 5px;
+        animation: fillProgress 1.5s ease-out forwards;
+        width: 0%;
+    }
+    @@keyframes fillProgress {
+        from { width: 0%; }
+        to { width: @(progress.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%; }
+    }
+    .quick-action-btn {
+        transition: all 0.2s;
+        border-radius: 1rem;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .quick-action-btn:hover {
+        transform: scale(1.03) translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+</style>
+
+<!-- Hero Karşılama -->
+<div class="hero-banner d-flex justify-content-between align-items-center flex-wrap gap-4">
+    <div class="z-1">
+        <h2 class="fw-bold mb-2">Hoş Geldin, @User.Identity?.Name! 👋</h2>
+        <p class="mb-4 text-white-75 fs-5">İyiliği çoğaltmak için buradayız. İşte projenin genel durumu:</p>
+        
+        @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+        {
+        <div class="d-flex align-items-center gap-3">
+            <div style="flex-grow: 1; max-width: 300px;">
+                <div class="d-flex justify-content-between mb-1 small text-white-75">
+                    <span>Mevcut Kasa Durumu</span>
+                    <span class="fw-bold text-white">@remainingBalance.ToString("N2") ₺</span>
+                </div>
+                <div class="progress-custom">
+                    <div class="progress-bar-custom"></div>
+                </div>
+            </div>
+            <div class="badge bg-white bg-opacity-25 px-3 py-2 rounded-pill">
+                <i class="fas fa-chart-line me-1"></i> %@(progress.ToString("0.0")) Bütçe Doluluğu
+            </div>
+        </div>
+        }
+    </div>
+    <div class="text-md-end z-1 bg-white bg-opacity-10 px-4 py-3 rounded-4 backdrop-blur">
+        <div class="fs-6 text-white-75 mb-1"><i class="far fa-calendar-alt me-2"></i>Bugünün Tarihi</div>
+        <div class="fs-5 fw-bold font-monospace">@DateTime.Now.ToString("dd MMMM yyyy")</div>
+        <div class="small mt-1 text-uppercase tracking-wider">@DateTime.Now.ToString("dddd")</div>
+    </div>
+</div>
+
+<!-- İstatistik Kartları -->
+<div class="row g-4 mb-4">
+    @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+    {
+    <div class="col-lg-3 col-md-6">
+        <div class="card glass-card">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="icon-box me-4" style="background: linear-gradient(135deg, #06d6a0 0%, #04b385 100%); color: white; box-shadow: 0 6px 15px rgba(6,214,160,0.3);">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div>
+                    <div class="text-muted small text-uppercase fw-bold letter-spacing">Toplam Fon</div>
+                    <div class="fs-3 fw-bold text-dark mt-1">@totalFunds.ToString("N0") ₺</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card glass-card">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="icon-box me-4" style="background: linear-gradient(135deg, #ef476f 0%, #d83d61 100%); color: white; box-shadow: 0 6px 15px rgba(239,71,111,0.3);">
+                    <i class="fas fa-hand-holding-dollar"></i>
+                </div>
+                <div>
+                    <div class="text-muted small text-uppercase fw-bold letter-spacing">Toplam Gider</div>
+                    <div class="fs-3 fw-bold text-dark mt-1">@totalExpenses.ToString("N0") ₺</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card glass-card">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="icon-box me-4" style="background: linear-gradient(135deg, #118ab2 0%, #0e7294 100%); color: white; box-shadow: 0 6px 15px rgba(17,138,178,0.3);">
+                    <i class="fas fa-users-viewfinder"></i>
+                </div>
+                <div>
+                    <div class="text-muted small text-uppercase fw-bold letter-spacing">Bağışçı Sayısı</div>
+                    <div class="fs-3 fw-bold text-dark mt-1">@ViewBag.TotalDonors</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    <div class="col-lg-3 col-md-6">
+        <div class="card glass-card">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="icon-box me-4" style="background: linear-gradient(135deg, #ffd166 0%, #e5bc5c 100%); color: white; box-shadow: 0 6px 15px rgba(255,209,102,0.3);">
+                    <i class="fas fa-arrows-spin fa-spin-pulse"></i>
+                </div>
+                <div>
+                    <div class="text-muted small text-uppercase fw-bold letter-spacing">Bekleyen Talep</div>
+                    <div class="fs-3 fw-bold text-dark mt-1">@ViewBag.PendingRequests</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Hızlı İşlemler -->
+    @if (User.IsInRole("Admin") || User.IsInRole("FieldWorker") || User.IsInRole("Accountant") || User.IsInRole("WarehouseStaff"))
+    {
+        <div class="col-12">
+            <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-bolt text-warning me-2"></i>Hızlı İşlemler</h5>
+            <div class="d-flex gap-3 flex-wrap">
+                @if (User.IsInRole("Admin") || User.IsInRole("FieldWorker"))
+                {
+                <a asp-controller="AidRequests" asp-action="Create" class="btn btn-light quick-action-btn border-0 py-2 px-4 shadow-sm text-dark d-flex align-items-center">
+                    <div class="rounded-circle bg-primary bg-opacity-10 p-2 me-2"><i class="fas fa-clipboard-question text-primary"></i></div> Yeni Yardım Talebi
+                </a>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+                {
+                <a asp-controller="Donations" asp-action="Create" class="btn btn-light quick-action-btn border-0 py-2 px-4 shadow-sm text-dark d-flex align-items-center">
+                    <div class="rounded-circle bg-success bg-opacity-10 p-2 me-2"><i class="fas fa-plus text-success"></i></div> Yeni Bağış Kaydı
+                </a>
+                <a asp-controller="Expenses" asp-action="Create" class="btn btn-light quick-action-btn border-0 py-2 px-4 shadow-sm text-dark d-flex align-items-center">
+                    <div class="rounded-circle bg-danger bg-opacity-10 p-2 me-2"><i class="fas fa-receipt text-danger"></i></div> Gider/Fatura Ekle
+                </a>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("WarehouseStaff"))
+                {
+                 <a asp-controller="Inventory" asp-action="Create" class="btn btn-light quick-action-btn border-0 py-2 px-4 shadow-sm text-dark d-flex align-items-center">
+                    <div class="rounded-circle bg-info bg-opacity-10 p-2 me-2"><i class="fas fa-box-open text-info"></i></div> Envantere Ürün
+                </a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Son Bağışlar Tablosu -->
+@if (User.IsInRole("Admin") || User.IsInRole("Accountant"))
+{
+    <div class="card glass-card border-top border-4 border-primary">
+        <div class="card-header bg-white bg-opacity-75 py-4 border-0 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold"><i class="fas fa-history text-muted me-2"></i>Son Bağış Akışı</h5>
+            <a asp-controller="Donations" asp-action="Index" class="btn btn-sm btn-outline-primary rounded-pill px-3">Tümünü Gör</a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle border-top">
+                    <thead class="bg-light bg-opacity-50 text-muted small text-uppercase">
+                        <tr>
+                            <th class="ps-4 py-3">Bağışçı</th>
+                            <th class="py-3">Tutar</th>
+                            <th class="py-3">Para Birimi</th>
+                            <th class="py-3">Bağış Türü</th>
+                            <th class="py-3">Durum</th>
+                            <th class="pe-4 py-3 text-end">Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody class="border-top-0">
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var d in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width:36px;height:36px;">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <span class="fw-semibold">@(d.Donor?.User?.FirstName ?? "Anonim") @(d.Donor?.User?.LastName ?? "")</span>
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-success py-3">+@d.Amount.ToString("N2") ₺</td>
+                                    <td class="text-muted py-3">@d.Currency</td>
+                                    <td class="py-3">
+                                        @switch (d.DonationType)
+                                        {
+                                            case "Cash": <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-25 rounded-pill px-3">Nakdi</span> break;
+                                            case "InKind": <span class="badge bg-secondary bg-opacity-25 text-secondary border border-secondary border-opacity-25 rounded-pill px-3">Ayni</span> break;
+                                            default: <span class="badge bg-light text-dark rounded-pill px-3">@d.DonationType</span> break;
+                                        }
+                                    </td>
+                                    <td class="py-3">
+                                        @await Html.PartialAsync("_StatusBadge", null, new ViewDataDictionary(ViewData) { { "Status", d.Status } })
+                                    </td>
+                                    <td class="text-muted pe-4 py-3 text-end small">@d.CreatedAt.ToLocalTime().ToString("dd MMMM, HH:mm")</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="6" class="text-center text-muted py-5"><i class="fas fa-inbox text-light fa-3x mb-3 d-block"></i>Sistemde henüz bir bağış görünmüyor.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,42 @@
+@model NgoDonationSystem.DTOs.Responses.ExpenseResponse
+
+@{
+    ViewData["Title"] = "Gider Kaydını Sil";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow border-0">
+            <div class="card-header bg-danger text-white py-3">
+                <h2 class="text-white py-2 m-0 text-center">Bu Harcamayı Silmek İstediğinize Emin Misiniz?</h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-warning text-center">
+                    Bu finansal kayıt kalıcı olarak silinecektir. Bu işlem finansal raporlarınızı etkileyebilir.
+                </div>
+
+                <div class="mb-4 text-center">
+                    <div class="fw-bold text-muted mb-1">Silinecek Tutar</div>
+                    <div class="display-5 text-danger fw-bold">@Model.Amount.ToString("C2")</div>
+                    <div class="mt-1 badge bg-secondary">@Model.CategoryName - @Model.ExpenseDate.ToShortDateString()</div>
+                </div>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger form-control shadow-sm">
+                                <i class="fas fa-trash-alt me-1"></i> Kaydı Kalıcı Olarak Sil
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">
+                                <i class="fas fa-arrow-left me-1"></i> Vazgeç
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

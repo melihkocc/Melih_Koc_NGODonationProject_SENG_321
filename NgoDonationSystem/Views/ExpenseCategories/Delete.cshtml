@@ -1,0 +1,39 @@
+@model NgoDonationSystem.DTOs.Responses.InventoryCategoryResponse
+
+@{
+    ViewData["Title"] = "Kategori Silinecek";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow border-0">
+            <div class="card-header bg-danger text-white py-3">
+                <h2 class="text-white py-2 m-0 text-center">Kategoriyi Silmek İstediğinize Emin Misiniz?</h2>
+            </div>
+            <div class="card-body p-4 text-center">
+                <div class="alert alert-warning mb-4">
+                    Bu kategoriyi silmek, bu kategoriye bağlı olan harcama kayıtlarını etkileyebilir.
+                </div>
+
+                <div class="mb-5">
+                    <div class="text-muted small text-uppercase fw-bold mb-1">Silinecek Kategori</div>
+                    <div class="display-6 fw-bold text-primary">@Model.CategoryName</div>
+                </div>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger form-control shadow-sm">
+                                <i class="fas fa-trash-alt me-1"></i> Kalıcı Olarak Sil
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">Vazgeç</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

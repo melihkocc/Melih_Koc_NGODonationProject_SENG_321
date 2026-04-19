@@ -1,0 +1,50 @@
+@model NgoDonationSystem.DTOs.Requests.AddStockRequest
+
+@{
+    ViewData["Title"] = "Stok Ekle";
+}
+
+<div class="page-header">
+    <h1><i class="fas fa-plus-circle me-2 text-muted"></i>@ViewData["Title"]</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-5 col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header py-3" style="background: var(--ngo-primary); color: #fff;">
+                <h5 class="mb-0"><i class="fas fa-box-open me-2"></i>@ViewBag.ItemName</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-info py-2">
+                    Mevcut Stok: <strong>@ViewBag.CurrentQuantity @ViewBag.UnitType</strong>
+                </div>
+                <form asp-action="AddStock" method="post">
+                    <input type="hidden" asp-for="InventoryItemId" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="QuantityToAdd" class="form-label fw-semibold"></label>
+                        <div class="input-group">
+                            <input asp-for="QuantityToAdd" class="form-control" type="number" step="0.01" />
+                            <span class="input-group-text">@ViewBag.UnitType</span>
+                        </div>
+                        <span asp-validation-for="QuantityToAdd" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn flex-fill" style="background: var(--ngo-primary); color: #fff;">
+                            <i class="fas fa-save me-1"></i> Ekle
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary flex-fill">
+                            <i class="fas fa-times me-1"></i> İptal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

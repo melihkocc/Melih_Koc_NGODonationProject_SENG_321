@@ -1,0 +1,71 @@
+@model NgoDonationSystem.DTOs.Requests.CreateBeneficiaryRequest
+
+@{
+    ViewData["Title"] = "Yeni Faydalanıcı Ekle";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow border-0">
+            <div class="card-header bg-success text-white py-3">
+                <h2 class="text-white py-2 m-0 text-center">@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FirstName" class="form-label fw-bold">Ad</label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Ad" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LastName" class="form-label fw-bold">Soyad</label>
+                            <input asp-for="LastName" class="form-control" placeholder="Soyad" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label fw-bold">E-posta</label>
+                            <input asp-for="Email" class="form-control" type="email" placeholder="email@example.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Phone" class="form-label fw-bold">Telefon</label>
+                            <input asp-for="Phone" class="form-control" placeholder="05XX XXX XXXX" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="IdentificationNumber" class="form-label fw-bold">Kimlik / Pasaport No</label>
+                        <input asp-for="IdentificationNumber" class="form-control" placeholder="11 haneli T.C. Kimlik No..." />
+                        <span asp-validation-for="IdentificationNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label fw-bold">Adres</label>
+                        <textarea asp-for="Address" class="form-control" rows="3" placeholder="Tam adres bilgisini giriniz..."></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="row pt-2 text-center text-md-start">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary form-control shadow-sm">Kaydet</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">Vazgeç</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

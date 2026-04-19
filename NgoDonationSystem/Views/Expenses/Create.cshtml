@@ -1,0 +1,70 @@
+@model NgoDonationSystem.DTOs.Requests.CreateExpenseRequest
+
+@{
+    ViewData["Title"] = "Yeni Gider Kaydı";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow border-0">
+            <div class="card-header bg-danger text-white py-3">
+                <h2 class="text-white py-2 m-0 text-center">@ViewData["Title"]</h2>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Amount" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">₺</span>
+                                <input asp-for="Amount" class="form-control" type="number" step="0.01" placeholder="0.00" />
+                            </div>
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ExpenseDate" class="form-label fw-bold"></label>
+                            <input asp-for="ExpenseDate" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CategoryId" class="form-label fw-bold"></label>
+                        <div class="input-group">
+                            <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                                <option value="">Kategori seçiniz...</option>
+                            </select>
+                            <a asp-controller="ExpenseCategories" asp-action="Create" class="btn btn-outline-secondary" title="Yeni Kategori Ekle">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-4">
+                        <label asp-for="UploadedFile" class="form-label fw-bold"></label>
+                        <input asp-for="UploadedFile" type="file" class="form-control" />
+                        <span asp-validation-for="UploadedFile" class="text-danger"></span>
+                        <div class="form-text mt-1 text-muted">Gider belgesini (fiş/fatura) buradan yükleyebilirsiniz. Yüklenen dosya otomatik olarak sisteme kaydedilir.</div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary form-control shadow-sm">Kaydet</button>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">Vazgeç</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

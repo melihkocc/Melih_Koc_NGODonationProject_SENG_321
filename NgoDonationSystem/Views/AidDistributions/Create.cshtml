@@ -1,0 +1,53 @@
+@model NgoDonationSystem.DTOs.Requests.CreateAidDistributionRequest
+
+@{
+    ViewData["Title"] = "Yeni Yardım Dağıtımı";
+}
+
+<div class="row pt-4 px-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow border-0">
+            <div class="card-header bg-success text-white py-3">
+                <h2 class="text-white py-2 m-0 text-center">Yeni Teslimat Kaydı</h2>
+            </div>
+            <div class="card-body p-4">
+                @if (ViewBag.WarningMessage != null)
+                {
+                    <div class="alert alert-warning">@ViewBag.WarningMessage</div>
+                }
+
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="AidRequestId" class="form-label fw-bold">Onaylanmış Yardım Talebi</label>
+                        <select asp-for="AidRequestId" class="form-select" asp-items="ViewBag.AidRequestId">
+                            <option value="">Lütfen talep seçiniz...</option>
+                        </select>
+                        <span asp-validation-for="AidRequestId" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label asp-for="DeliveredNotes" class="form-label fw-bold">Teslimat Notları</label>
+                        <textarea asp-for="DeliveredNotes" class="form-control" rows="3" placeholder="Teslimata dair açıklamalar giriniz..."></textarea>
+                        <span asp-validation-for="DeliveredNotes" class="text-danger"></span>
+                    </div>
+
+                    <div class="row pt-2 text-center text-md-start">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary form-control shadow-sm">Kayıt Oluştur</button>
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-outline-secondary border form-control shadow-sm">Geri</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

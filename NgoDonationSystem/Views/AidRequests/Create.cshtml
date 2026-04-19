@@ -1,0 +1,76 @@
+@model NgoDonationSystem.DTOs.Requests.CreateAidRequest
+
+@{
+    ViewData["Title"] = "Yeni Yardım Talebi";
+}
+
+<div class="page-header">
+    <h1><i class="fas fa-clipboard-list me-2 text-muted"></i>@ViewData["Title"]</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header py-3" style="background: var(--ngo-primary); color: #fff;">
+                <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Talep Bilgileri</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="BeneficiaryId" class="form-label fw-semibold"></label>
+                        <select asp-for="BeneficiaryId" class="form-select" asp-items="@(ViewData["BeneficiaryId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList)">
+                            <option value="">— Faydalanıcı Seçiniz —</option>
+                        </select>
+                        <span asp-validation-for="BeneficiaryId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="InventoryItemId" class="form-label fw-semibold"></label>
+                        <select asp-for="InventoryItemId" class="form-select" asp-items="@(ViewData["InventoryItemId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList)">
+                            <option value="">— Envanterden Ürün Seçiniz —</option>
+                        </select>
+                        <span asp-validation-for="InventoryItemId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Quantity" class="form-label fw-semibold"></label>
+                        <input asp-for="Quantity" class="form-control" placeholder="10" />
+                        <span asp-validation-for="Quantity" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="RequestedItems" class="form-label fw-semibold"></label>
+                        <textarea asp-for="RequestedItems" class="form-control" rows="2" placeholder="Ek açıklamalar, notlar vb."></textarea>
+                        <span asp-validation-for="RequestedItems" class="text-danger small"></span>
+                    </div>
+
+                    @if (!User.IsInRole("FieldWorker"))
+                    {
+                        <div class="mb-4">
+                            <label asp-for="AssignedWorkerId" class="form-label fw-semibold"></label>
+                            <select asp-for="AssignedWorkerId" class="form-select" asp-items="@(ViewData["AssignedWorkerId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList)">
+                                <option value="">— Atanacak Dağıtıcıyı Seçiniz (Opsiyonel) —</option>
+                            </select>
+                            <span asp-validation-for="AssignedWorkerId" class="text-danger small"></span>
+                        </div>
+                    }
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn flex-fill" style="background: var(--ngo-primary); color: #fff;">
+                            <i class="fas fa-save me-1"></i> Kaydet
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary flex-fill">
+                            <i class="fas fa-times me-1"></i> Vazgeç
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

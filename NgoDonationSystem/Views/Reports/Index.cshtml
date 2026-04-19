@@ -1,0 +1,453 @@
+@model NgoDonationSystem.Controllers.ReportsDashboardViewModel
+@using System.Text.Json;
+
+@{
+    ViewData["Title"] = "Bağış ve Analiz Raporları";
+    var trendsJson = JsonSerializer.Serialize(Model.Stats.MonthlyDonationTrends);
+    var typesJson = JsonSerializer.Serialize(Model.Stats.DonationsByType);
+    var expensesJson = JsonSerializer.Serialize(Model.Stats.ExpensesByCategory);
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --ngo-primary: #4361ee;
+        --ngo-secondary: #3f37c9;
+        --ngo-success: #4cc9f0;
+        --ngo-info: #4895ef;
+        --ngo-warning: #f72585;
+        --ngo-bg: #f8f9fa;
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--ngo-bg);
+    }
+
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+        font-weight: 700;
+        color: #2b2d42;
+        letter-spacing: -0.5px;
+    }
+
+    .stat-card {
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: #fff;
+        box-shadow: var(--card-shadow);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .icon-donations { background: rgba(67, 97, 238, 0.1); color: #4361ee; }
+    .icon-expenses { background: rgba(247, 37, 133, 0.1); color: #f72585; }
+    .icon-donors { background: rgba(76, 201, 240, 0.1); color: #4cc9f0; }
+    .icon-beneficiaries { background: rgba(72, 149, 239, 0.1); color: #4895ef; }
+
+    .stat-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #6c757d;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2b2d42;
+    }
+
+    .chart-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        background: #fff;
+        height: 100%;
+    }
+
+    .chart-card .card-header {
+        background: transparent;
+        border-bottom: 1px solid #f1f3f5;
+        padding: 1.25rem 1.5rem;
+        font-weight: 600;
+        color: #2b2d42;
+    }
+
+    .chart-container {
+        padding: 1.5rem;
+        position: relative;
+    }
+
+    .table-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .table-card .card-header {
+        background: transparent;
+        border-bottom: 1px solid #f1f3f5;
+        padding: 1.25rem 1.5rem;
+        font-weight: 600;
+        color: #2b2d42;
+    }
+
+    .table thead th {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+        padding: 1rem;
+    }
+
+    .table tbody td {
+        padding: 1rem;
+        vertical-align: middle;
+        font-size: 0.9rem;
+    }
+
+    .badge-pill {
+        border-radius: 50px;
+        padding: 0.4rem 0.8rem;
+        font-weight: 600;
+        font-size: 0.75rem;
+    }
+
+    .progress-bar-custom {
+        height: 8px;
+        border-radius: 4px;
+        background-color: #f1f3f5;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        border-radius: 4px;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="page-header d-flex justify-content-between align-items-center">
+        <div>
+            <h1><i class="fas fa-chart-line me-3 text-primary"></i>@ViewData["Title"]</h1>
+        </div>
+    </div>
+
+    <!-- KPI Cards Row -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="stat-icon icon-donations">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <div class="stat-label">Toplam Bağış</div>
+                    <div class="stat-value">@Model.Stats.TotalDonationsAmount.ToString("N2") ₺</div>
+                    <div class="mt-2">
+                        <small class="text-success"><i class="fas fa-arrow-up me-1"></i>Genel Toplam</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="stat-icon icon-expenses">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-label">Toplam Gider</div>
+                    <div class="stat-value">@Model.Stats.TotalExpensesAmount.ToString("N2") ₺</div>
+                    <div class="mt-2">
+                        <small class="text-danger"><i class="fas fa-wallet me-1"></i>Harcanan Fonlar</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="stat-icon icon-donors">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-label">Bağışçı Sayısı</div>
+                    <div class="stat-value">@Model.Stats.TotalDonorsCount</div>
+                    <div class="mt-2">
+                        <small class="text-info"><i class="fas fa-user-check me-1"></i>Kayıtlı Gönüllü</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <div class="stat-icon icon-beneficiaries">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="stat-label">Faydalanıcı Sayısı</div>
+                    <div class="stat-value">@Model.Stats.TotalBeneficiariesCount</div>
+                    <div class="mt-2">
+                        <small class="text-primary"><i class="fas fa-heart me-1"></i>Desteklenen Kişi</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="card chart-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-chart-area me-2 text-primary"></i>Aylık Bağış Trendi</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trendsChart" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card chart-card">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-2 text-info"></i>Bağış Dağılımı (Tür)
+                </div>
+                <div class="chart-container">
+                    <canvas id="typesChart" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <!-- Top Donors Table -->
+        <div class="col-lg-6">
+            <div class="card table-card">
+                <div class="card-header bg-white">
+                    <i class="fas fa-star me-2 text-warning"></i>En Fazla Bağış Yapanlar
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Bağışçı</th>
+                                    <th>Adet</th>
+                                    <th class="text-end">Toplam Tutar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var donor in Model.Stats.TopDonors)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-sm bg-light rounded-circle p-2 me-2">
+                                                    <i class="fas fa-user text-muted"></i>
+                                                </div>
+                                                <span class="fw-semibold">@donor.Name</span>
+                                            </div>
+                                        </td>
+                                        <td>@donor.DonationCount</td>
+                                        <td class="text-end fw-bold text-primary">@donor.TotalAmount.ToString("N2") ₺</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expenses by Category -->
+        <div class="col-lg-6">
+            <div class="card chart-card">
+                <div class="card-header">
+                    <i class="fas fa-tags me-2 text-info"></i>Gider Dağılımı (Kategori)
+                </div>
+                <div class="chart-container">
+                    <canvas id="expensesChart" height="280"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Table (Original) -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card table-card">
+                <div class="card-header">
+                    <i class="fas fa-list me-2"></i>Bağış Türüne Göre Özet
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Bağış Türü</th>
+                                    <th>Toplam Adet</th>
+                                    <th class="text-end">Toplam Tutar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.DonationSummaries)
+                                {
+                                    <tr>
+                                        <td>
+                                            @switch (item.DonationType)
+                                            {
+                                                case "Online": <span class="badge bg-info text-dark badge-pill">Online</span> break;
+                                                case "Havale/EFT": <span class="badge bg-primary badge-pill">Havale/EFT</span> break;
+                                                case "Elden": <span class="badge bg-secondary badge-pill">Elden</span> break;
+                                                default: <span class="badge bg-light text-dark border badge-pill">@item.DonationType</span> break;
+                                            }
+                                        </td>
+                                        <td class="fw-semibold">@item.TotalCount</td>
+                                        <td class="text-end fw-bold text-primary">@item.TotalAmount.ToString("N2") ₺</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td class="fw-bold">Genel Toplam</td>
+                                    <td class="fw-bold">@Model.DonationSummaries.Sum(m => m.TotalCount)</td>
+                                    <td class="text-end fw-bold text-primary">@Model.DonationSummaries.Sum(m => m.TotalAmount).ToString("N2") ₺</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Data from Model
+        const trendData = @Html.Raw(trendsJson);
+        const typeData = @Html.Raw(typesJson);
+        const expenseData = @Html.Raw(expensesJson);
+
+        // 1. Monthly Trend Chart
+        new Chart(document.getElementById('trendsChart'), {
+            type: 'line',
+            data: {
+                labels: trendData.map(d => d.Month),
+                datasets: [{
+                    label: 'Bağış Tutarı (₺)',
+                    data: trendData.map(d => d.Amount),
+                    borderColor: '#4361ee',
+                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#4361ee',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [5, 5] },
+                        ticks: { callback: value => value.toLocaleString('tr-TR') + ' ₺' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. Donation Distribution Chart
+        new Chart(document.getElementById('typesChart'), {
+            type: 'doughnut',
+            data: {
+                labels: typeData.map(d => d.DonationType),
+                datasets: [{
+                    data: typeData.map(d => d.TotalAmount),
+                    backgroundColor: ['#4361ee', '#4cc9f0', '#4895ef', '#7209b7', '#f72585'],
+                    borderWidth: 0,
+                    weight: 0.5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } }
+                }
+            }
+        });
+
+        // 3. Expenses Chart
+        new Chart(document.getElementById('expensesChart'), {
+            type: 'bar',
+            data: {
+                labels: expenseData.map(d => d.CategoryName),
+                datasets: [{
+                    label: 'Gider Tutarı (₺)',
+                    data: expenseData.map(d => d.TotalAmount),
+                    backgroundColor: 'rgba(247, 37, 133, 0.7)',
+                    borderRadius: 8,
+                    barThickness: 25
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [5, 5] },
+                        ticks: { callback: value => value.toLocaleString('tr-TR') + ' ₺' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    });
+</script>
